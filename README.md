@@ -79,7 +79,7 @@ Optional: plotting using Folium, non-interactive map (no tooltips or different c
 
 # Extra notes:
 
-Note - axis labels and tick labels are in Hebrew, labels are mirrored to allow for proper presentation. Some of them are shortened to an arbitrary length for display purposes.
+Note - axis labels and tick labels are in Hebrew, labels are mirrored to allow for proper presentation. Some of them are shortened to an arbitrary length for display purposes. Others are shortened by dictionary.
 
 Note - subtables for pivot are either masked or by creating a separate new table for each value in a given column (when the values are categories).
 
