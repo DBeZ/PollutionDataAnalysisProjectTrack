@@ -24,12 +24,12 @@ Project outline:
  
 (b) Bar plots of 10 factories which produce the most waste, dangerous and non-dangerous.
 
-() Multi-feature scatter plot comparing accidental and non-accidental emission using altair. y axis is industry field, x axis is a sub division of industry fields. Circle size denotes emission amount. 
+(c) Multi-feature scatter plot comparing accidental and non-accidental emission using altair. y axis is industry field, x axis is a sub division of industry fields. Circle size denotes emission amount. 
 Graphs saved as HTML file in subfolders of the output folder.
 A non-graphic UI is called to determine the number of high outlier removal - a number is selected, graphs are saved and results is confirmed or the process is repeated with a new entered number.
 
 
-() Violin plots created for accidental and non-accidental emission in industry fields using seaborn. 
+(d) Violin plots created for accidental and non-accidental emission in industry fields using seaborn. 
 Optional: Create bar plots of all possible options of emission type and destination, with and without log y axis. 
 Optional: Crate a bar plot comparing all possible options of emission type and destination, with logarithmic y axis. 
 Optional: Create on two-graph plot (2 subplots) demonstrating the effect of y log scale on inorganic emissions to water sources (by product). 
@@ -37,8 +37,9 @@ Graphs saved as png files in the output folder.
 Note- all optimal plots render by visibly maximizing figure window, causing a flickering affect. 
 
 
-() Gepoy converts Hebrew city names to latitude and longitude. Geolocation data is pickled into output folder. If a pickled data geolocation file exists it will be used instead of accessing the geolocation server.
-() Number of factories in each field plotted on map using geoviews. bokeh provides interactivity. Circle size indicates number of factories in the city. Circle color changes between graphs. Graphs saved as HTML in a subfolder of the output folder.
+(e) Gepoy converts Hebrew city names to latitude and longitude. Geolocation data is pickled into output folder. If a pickled data geolocation file exists it will be used instead of accessing the geolocation server.
+
+(f) Number of factories in each field plotted on map using geoviews. bokeh provides interactivity. Circle size indicates number of factories in the city. Circle color changes between graphs. Graphs saved as HTML in a subfolder of the output folder.
 Optional: plotting using Folium, non-interactive map (no tooltips or different circle sizes). Circle color changes between graphs. Graphs saved as HTML in a subfolder of the output folder.
 
 
