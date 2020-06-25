@@ -84,6 +84,6 @@ Note - axis labels and tick labels are in Hebrew, labels are mirrored to allow f
 Note - subtables for pivot are either masked or by creating a separate new table for each value in a given column (when the values are categories).
 
 
-# Lisence
+# Lisence:
 Released under GNU Affero General Public License, see Lisence.txt or <https://www.gnu.org/licenses/>.
 
