@@ -63,7 +63,7 @@ def accident_non_acci_graph_generator(data, x_val_col, folder_name, is_log=True)
         graph_folder_name = folder_name
         if not os.path.isdir(graph_folder_name):
             os.mkdir(graph_folder_name)
-        os.chdir(graph_folder_name)
+        os.chdir(working_directory+"\\"+graph_folder_name)
 
         cleaned_df = data_value_cleaining(data)  # Corrects Nans and specific emission column data
         emission_type_dfs, emission_type_dfs_val_list = dataframe_by_column_value_separator(dataframe=cleaned_df,
@@ -80,6 +80,7 @@ def accident_non_acci_graph_generator(data, x_val_col, folder_name, is_log=True)
                 data_frame.reset_index(inplace=True)
 
             title_heb = "פליטה של {} בתאונות ובשגרה ל{} לפי {}"
+            emission_polutent=shorten_name(dataframe=emission_polutent, cols=["SugPeilutAtarSvivati"], how_short=40)
             visualize.accidents_with_non_acci(col_by=x_val_col, col_of=col_of, dataframes=emission_polutent,
                                               title_template=title_heb,
                                               col_name="מוצר", output_folder_name ="", is_x_rtl=True, is_log=is_log)
@@ -203,12 +204,13 @@ def accident_cutoff_check_ui(data,cutoff_val):
             print("Is the cutoff of "+str(cutoff_val)+ " removing enough of the outliers? y/n")
             input_val = input()
             if input_val =="y":
+                Flag=False
                 return cutoff_val
             elif input_val=="n":
+                Flag=False
                 cutoff_val=accident_analysis_ui(data)
                 return cutoff_val
             else:
-                Flag=False
                 print("Input should be y or n")
     except Exception as e:
         print("Error during outlier cutoff setting")
