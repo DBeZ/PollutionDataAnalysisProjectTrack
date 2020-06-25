@@ -1,11 +1,32 @@
-import geopandas
-from geopy.extra.rate_limiter import RateLimiter
+'''
+    Analysis of Israel Pollutant Release and Transfer Register (PRTR)
+    Copyright (C) 2020  Doreen S. Ben-Zvi, PhD
+
+    Full license is locates in License.txt at project root folder.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+'''
+
+import multiprocessing
+import os
+
 import geopy
 import pandas as pd
+from geopy.extra.rate_limiter import RateLimiter
+
 from load_data import load_data_from_pickle
-from save_data import export_to_csv, save_as_pickel
-import os
-import multiprocessing
+from save_data import save_as_pickel
 
 
 #######################

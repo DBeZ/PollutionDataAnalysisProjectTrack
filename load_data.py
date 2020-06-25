@@ -1,5 +1,27 @@
-import pandas as pd
+'''
+    Analysis of Israel Pollutant Release and Transfer Register (PRTR)
+    Copyright (C) 2020  Doreen S. Ben-Zvi, PhD
+
+    Full license is locates in License.txt at project root folder.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+'''
+
 import os
+
+import pandas as pd
+
 
 ################
 # Loading data #
@@ -18,6 +40,3 @@ def load_data_from_pickle(pickle_file_name, output_folder_name=os.getcwd()):
     pickled_data = pd.read_pickle(pickle_file_name + ".pkl")
     os.chdir(working_direcotry)
     return pickled_data
-
-
-

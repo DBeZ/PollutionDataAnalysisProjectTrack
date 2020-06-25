@@ -1,10 +1,30 @@
-import pandas as pd
-import numpy as np
-from load_data import load_data_from_csv
-import data_conversion as dataconv
-from save_data import save_as_pickel
-from data_conversion import clean_data_ui
+'''
+    Analysis of Israel Pollutant Release and Transfer Register (PRTR)
+    Copyright (C) 2020  Doreen S. Ben-Zvi, PhD
+
+    Full license is locates in License.txt at project root folder.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+'''
 import os
+
+import numpy as np
+import pandas as pd
+
+import data_conversion as dataconv
+from load_data import load_data_from_csv
+from save_data import save_as_pickel
 
 
 # Returns column names with high number of unique values and ones with lower,
@@ -271,6 +291,7 @@ def data_cleaning(file_to_load, pickel_name, output_folder_name):
     data_df = dataconv.clean_data_ui(data_df)  # Removes columns and adjusts data types
     save_as_pickel(dataframe=data_df, output_folder_name=output_folder_name, save_file_name=pickel_name)
 
+
 # Load dataframe from csv, clean it and immediately pickle it
 def load_csv_then_pickle(csv_file_name, output_folder_name, pickle_file_name):
     working_direcotry = os.getcwd()
@@ -279,6 +300,13 @@ def load_csv_then_pickle(csv_file_name, output_folder_name, pickle_file_name):
     data = dataconv.clean_data_ui(data)
     save_as_pickel(data, output_folder_name, pickle_file_name)
     os.chdir(working_direcotry)
+
+
+# shorten name for display
+def shorten_name(dataframe, col, how_short):
+    dataframe[col] = dataframe[col].str[:how_short]
+    return dataframe
+
 
 # Shorten product names for display
 def shorten_product_name(dataframe, product_col):
@@ -388,6 +416,7 @@ def shorten_product_name(dataframe, product_col):
     dataframe = dataframe.replace({product_col: product_dict})
     return dataframe
 
+
 ##############
 # Archiology #
 ##############
@@ -442,3 +471,6 @@ def shorten_product_name(dataframe, product_col):
 #             values_dict[col] = non_num_values
 #         if non_num_values == []:
 #             return values_dict
+
+if __name__ == "__main__":
+    data_cleaning(file_to_load="MIFLAS_data.csv", pickel_name="testpickle", output_folder_name="Output_files")

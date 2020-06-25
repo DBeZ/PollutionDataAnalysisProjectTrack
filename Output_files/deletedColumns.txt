@@ -1,14 +1,3 @@
 StatusDivuach
 MeferHovatDivuach
 NechonutNekudatTsiun
-ShuraRishonaBedivuachAndShnatDivuach
-KtovetTaagidShutfut
-KtovetAtarSvivatiMenifa
-TelefonAtarSvivatiMenifa
-FaxAtarSvivatiMenifa
-AtarInternetMenifa
-KtovetLeMishloahDoarAtarSvivatiMenifa
-MezahemBeplita
-MezahemBeplitaHeb
-ShuraRishonaBedivuach
-HyperLink
