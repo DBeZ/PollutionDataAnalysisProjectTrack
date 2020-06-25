@@ -3,9 +3,13 @@
 PollutionDataAnalysisProjectTrack
 
 
+
+
 # Data:
 Uses Israel ministry of environmental protection Pollutant Release and Transfer Register (PRTR).
 It contains structured Data, with Quantitative and Categorical entries.
+
+
 
 
 # Purpose:
@@ -15,9 +19,13 @@ It contains structured Data, with Quantitative and Categorical entries.
 * Identify Industrial geographical clusters which moving/reducing will have a significant difference on pollution in different areas in Israel.
 
 
+
+
 # Project outline:
 
-1. Data Cleaning. Uses a non-graphic UI. Cleaned data is then pickled. If a pickled data file exists UI will not be called.
+**1.** Data Cleaning
+
+     Uses a non-graphic UI. Cleaned data is then pickled. If a pickled data file exists UI will not be called.
      Columns with low variability (less than two unique values) are removed.
      
     (1.2) Numeric columns description is displayed. 
@@ -36,10 +44,11 @@ It contains structured Data, with Quantitative and Categorical entries.
     Specific column treatment: Comma removal from numeric values, accidental/non accidental/total emission calculated from data, non-dangerous waste column created. 
  
  
-2. Bar plots of 10 factories which produce the most waste, dangerous and non-dangerous.
+  
+**2.** Bar plots of 10 factories which produce the most waste, dangerous and non-dangerous.
 
 
-3. Multi-feature scatter plot comparing accidental and non-accidental emission using altair. y axis is industry field, x axis is a sub division of industry fields. Circle size denotes emission amount. 
+**3.** Multi-feature scatter plot comparing accidental and non-accidental emission using altair. y axis is industry field, x axis is a sub division of industry fields. Circle size denotes emission amount. 
 
 Graphs saved as HTML file in subfolders of the output folder.
 
@@ -47,7 +56,7 @@ A non-graphic UI is called to determine the number of high outlier removal - a n
 
 
 
-4. Violin plots created for accidental and non-accidental emission in industry fields using seaborn. 
+**4.** Violin plots created for accidental and non-accidental emission in industry fields using seaborn. 
 
 Optional: Create bar plots of all possible options of emission type and destination, with and without log y axis. 
 
@@ -61,13 +70,14 @@ Note- all optimal plots render by visibly maximizing figure window, causing a fl
 
 
 
-5. Gepoy converts Hebrew city names to latitude and longitude. Geolocation data is pickled into output folder. If a pickled data geolocation file exists it will be used instead of accessing the geolocation server.
+**5.** Gepoy converts Hebrew city names to latitude and longitude. Geolocation data is pickled into output folder. If a pickled data geolocation file exists it will be used instead of accessing the geolocation server.
 
 
-6. Number of factories in each field plotted on map using geoviews. bokeh provides interactivity. Circle size indicates number of factories in the city. Circle color changes between graphs. Graphs saved as HTML in a subfolder of the output folder.
+**6.** Number of factories in each field plotted on map using geoviews. bokeh provides interactivity. Circle size indicates number of factories in the city. Circle color changes between graphs. Graphs saved as HTML in a subfolder of the output folder.
 
 Optional: plotting using Folium, non-interactive map (no tooltips or different circle sizes). Circle color changes between graphs. Graphs saved as HTML in a    subfolder of the output folder.
 
+# Extra notes:
 
 Note - axis labels and tick labels are in Hebrew, labels are mirrored to allow for proper presentation. Some of them are shortened to an arbitrary length for display purposes.
 
