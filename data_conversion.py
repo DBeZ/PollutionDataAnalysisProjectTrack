@@ -7,7 +7,7 @@
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published
     by the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+    any later version.
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -143,7 +143,7 @@ def convert_datatype_ui(data):
             continue
 
     # print("Columns for manual correction: "+ str(columns_for_manual_correction))
-    with open('Output_files/deletedForManual.txt', 'w') as file4:
+    with open('Output_files/ForManual.txt', 'w') as file4:
         for item in columns_for_manual_correction:
             file4.write("%s\n" % item)
     file4.close()

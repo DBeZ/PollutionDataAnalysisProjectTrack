@@ -7,7 +7,7 @@
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published
     by the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+    any later version.
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -75,13 +75,21 @@ def make_fullscreen():
     plt.pause(0.001)  # without this delay fullscreen only takes hold if plt.show() is used
 
 
-# Save matplotlib figure
-def save_figure(figure_name):
+# Save matplotlib output_folder_name
+def save_figure(figure_name, output_folder_name="Output_files"):
+    working_directory = os.getcwd()
+    if output_folder_name!="":
+        if not os.path.exists(output_folder_name):
+            os.mkdir(output_folder_name)
+        os.chdir(output_folder_name)
     plt.savefig(fname=figure_name, bbox_inches='tight')
     plt.close()
+    dir = os.getcwd()
+    os.chdir(working_directory)
+    return dir
 
 
-# Compare log and non log y scales in one instance of accidental and non eccidental emissions
+# Compare log and non log y scales in one instance of accidental and non accidental emissions
 def compare_for_presentation(dataframe, pv, col_by, col_name, col_of):
     if col_by == "TchumPeilutAtarSvivati" and dataframe["SugPlita"][0] == "מקור מים" and dataframe[col_of][
         0] == "חומרים אנאורגניים":
@@ -114,11 +122,12 @@ def compare_for_presentation(dataframe, pv, col_by, col_name, col_of):
         # plt.tight_layout()
         make_fullscreen()
         plt.show(block=False)
-        save_figure(figure_name=title_heb)
+        dir = save_figure(figure_name=title_heb)
+        print("Figure with two sublots saved at " + str(dir))
 
 
 # Bar plot comparing accidental and non accidental emissions
-def accidents_with_non_acci(dataframes, col_by, col_of, title_template, col_name, is_x_rtl=False, is_log=False):
+def accidents_with_non_acci(dataframes, col_by, col_of, title_template, col_name, output_folder_name, is_x_rtl=False, is_log=False):
     for dataframe in dataframes:
         # Arrange data columns and legend
         title_heb = title_template.format(dataframe[col_of][0], dataframe["SugPlita"][0], col_name)
@@ -160,8 +169,8 @@ def accidents_with_non_acci(dataframes, col_by, col_of, title_template, col_name
             plt.tight_layout()
             make_fullscreen()
             # plt.show(block=False)
-            save_figure(figure_name=title_heb)
-
+            dir = save_figure(figure_name=title_heb, output_folder_name=output_folder_name)
+            print("Accident and Non-accident comparing graph saved at " + str(dir))
             compare_for_presentation(dataframe=dataframe, pv=pv, col_by=col_by, col_name=col_name, col_of=col_of)
 
 
@@ -206,24 +215,8 @@ def accidents_or_non_acci(dataframes, col_by, col_of, title_template, col_name, 
             plt.tight_layout()
             make_fullscreen()
             # plt.show(block=False)
-            save_figure(figure_name=title_heb)
-
-
-# Pie chart
-def pie_plot(outer_data, outer_col, inner_data, inner_col, outer_label, inner_label, title_heb):
-    # Outer Ring
-    fig, ax = plt.subplots()
-    ax.axis('equal')
-    mypie, _ = ax.pie(outer_data[outer_col], radius=1.3, labels=outer_label)
-    plt.setp(mypie, width=0.3, edgecolor='white')
-    # Inner Ring
-    mypie2, _ = ax.pie(inner_data[inner_col], radius=1.3 - 0.3, labels=inner_label, labeldistance=0.7)
-    plt.setp(mypie2, width=0.4, edgecolor='white')
-    plt.margins(0, 0)
-    plt.tight_layout()
-    make_fullscreen()
-    # plt.show(block=False)
-    save_figure(figure_name=title_heb)
+            dir = save_figure(figure_name=title_heb, output_folder_name="")
+            print("Accidental emmission graphs save at " + str(dir))
 
 
 # Petal Scatter plot with color indicating category and size indicating value
@@ -240,8 +233,9 @@ def multi_feat_scatter(data, filename, x_col, y_col, size_col, color_col):
         labelColor='red',
         labelFontSize=14
     )
-
+    dir=os.getcwd()
     altair_saver.save(chart, filename + ".html")
+    print("Multi feature scatter plot saved at " + str(dir))
 
 
 # Violin plot for multiple series - two series on one violin
@@ -269,7 +263,8 @@ def violin_emissions(data, x_col, y_col, hue, split, figure_name, fig_title, is_
     plt.tight_layout()
     make_fullscreen()
     # plt.show(block=False)
-    save_figure(figure_name=figure_name)
+    dir = save_figure(figure_name=figure_name)
+    print("Violin plot saved at " + str(dir))
 
 
 # Save folium map into designated folder
@@ -287,7 +282,9 @@ def save_folium_map(map_plot, file_name, output_folder="Output_files"):
     else:
         os.chdir(directory)
     map_plot.save(outfile=file_name + ".html")
+    dir = os.getcwd()
     os.chdir(working_directory)
+    return dir
 
 
 # Save geoviews map into designated folder
@@ -305,7 +302,47 @@ def save_geoviews(map_plot, file_name, renderer, output_folder="Output_files"):
     else:
         os.chdir(directory)
     renderer.save(map_plot, file_name[0:40])
+    dir = os.getcwd()
     os.chdir(working_directory)
+    return dir
+
+
+# loop trough available colors for folium map
+def color_looper_folium(number):
+    color = ["blue", "green", "purple", "orange", "darkred", "lightred", "darkblue", "darkgreen",
+             "darkpurple", "lightblue",
+             "lightgreen"]  # Not seen as well on this map tile "black", "gray", lightgray", "beige", "white", "cadetblue", "red", "pink"
+    return [color[number % len(color)] if len(color) - 1 < number else color[number]][0]
+
+
+# loop trough available colors for map
+def color_looper_bokeh(number):
+    color = ["aqua", "aqua", "blue", "blueviolet", "darkred", "cadetblue", "chartreuse", "coral", "cornflowerblue",
+             "darkgoldenrod", "darkgreen", "darkmagenta", "darkorange", "darkorchid", "deeppink", "gold", "greenyellow",
+             "lightcoral", "plum", "orange"]
+    return [color[number % len(color)] if len(color) - 1 < number else color[number]][0]
+
+
+# Create geoviews map with size according to industry
+def industry_size_map(data_list, data_values_list, industry_col):
+    for ind, data_df in enumerate(data_list):
+        renderer = gv.renderer('bokeh')
+        gv_points = gv.Points(data_df, ['longitude', 'latitude'],
+                              [industry_col, 'YeshuvAtarSvivatiMenifa'])
+        data_df.rename(columns={industry_col: ""})
+        tooltips = [("Amount", "@" + industry_col),
+                    ("Location", '@YeshuvAtarSvivatiMenifa')]
+        hover = HoverTool(tooltips=tooltips)
+        # map_plot =gvts.CartoLight.options(width=500, height=800, xaxis=None, yaxis=None, show_grid=False) * gv_points
+        map_plot = (gvts.CartoLight * gv_points).opts(
+            opts.Points(width=400, height=700, alpha=0.3,
+                        hover_line_color='black', color=color_looper_bokeh(ind),
+                        line_color='black', xaxis=None, yaxis=None,
+                        tools=[hover], size=dim(industry_col) * 10,
+                        hover_fill_color=None, hover_fill_alpha=0.5))
+        dir = save_geoviews(map_plot=map_plot, file_name="map " + industry_col + "-" + data_values_list[ind],
+                            renderer=renderer, output_folder="Output_files")
+        print("Map plot saved at " + str(dir))
 
 
 # Save plotly map into designated folder
@@ -324,66 +361,33 @@ def save_geoviews(map_plot, file_name, renderer, output_folder="Output_files"):
 #         os.chdir(directory)
 #     map_plot.save(file_name + ".png")
 
-# loop trough available colors for folium map
-def color_looper_folium(number):
-    color = ["blue", "green", "purple", "orange", "darkred", "lightred", "darkblue", "darkgreen",
-             "darkpurple", "lightblue",
-             "lightgreen"]  # Not seen as well on this map tile "black", "gray", lightgray", "beige", "white", "cadetblue", "red", "pink"
-    return [color[number % len(color)] if len(color) - 1 < number else color[number]][0]
-
-
-# loop trough available colors for map
-def color_looper_bokeh(number):
-    color = ["blue", "green", "purple", "orange", "darkred", "darkblue", "darkgreen",
-             "lightblue", "lightgreen"]
-    return [color[number % len(color)] if len(color) - 1 < number else color[number]][0]
-
 
 # Create plotly geographical map with size according to industry
-def industry_size_map(data_list, data_values_list, industry_col):
-    for ind, data_df in enumerate(data_list):
-        renderer = gv.renderer('bokeh')
-        gv_points = gv.Points(data_df, ['longitude', 'latitude'],
-                              [industry_col, 'YeshuvAtarSvivatiMenifa'])
-        data_df.rename(columns={industry_col: ""})
-        tooltips = [("Amount", "@" + industry_col),
-                    ("Location", '@YeshuvAtarSvivatiMenifa')]
-        hover = HoverTool(tooltips=tooltips)
-        # map_plot =gvts.CartoLight.options(width=500, height=800, xaxis=None, yaxis=None, show_grid=False) * gv_points
-        map_plot = (gvts.CartoLight * gv_points).opts(
-            opts.Points(width=400, height=700, alpha=0.3,
-                        hover_line_color='black', color=color_looper_bokeh(ind),
-                        line_color='black', xaxis=None, yaxis=None,
-                        tools=[hover], size=dim(industry_col) * 10,
-                        hover_fill_color=None, hover_fill_alpha=0.5))
-        save_geoviews(map_plot=map_plot, file_name="map " + industry_col + "-" + data_values_list[ind],
-                      renderer=renderer, output_folder="Output_files")
-
-
-# Create plotly geographical map with size according to industry
+# Plotly doesnt have a mapy of Israel so left unused
 # def industry_size_map(data_list, data_values_list, industry_col):
 #     for ind, data_df in enumerate(data_list):
 #         fig = px.scatter_mapbox(data_df, lat='latitude', lon='longitude', size=industry_col, color="YeshuvAtarSvivatiMenifa",
 #                                 color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10)
-#         # fig = px.scatter_geo(data_df, lon = data_df['longitude'], lat = data_df['latitude'],
-#         #                      hover_name="YeshuvAtarSvivatiMenifa", size=industry_col,
-#         #                      projection="natural earth")
-#         # fig.update_layout(
-#         #     title=industry_col+"-"+data_values_list[ind],
-#         #     geo=dict(
-#         #         scope='israel',
-#         #         showland=True,
-#         #         landcolor="rgb(250, 250, 250)",
-#         #         subunitcolor="rgb(217, 217, 217)",
-#         #         countrycolor="rgb(217, 217, 217)",
-#         #         countrywidth=0.5,
-#         #         subunitwidth=0.5
-#         #     ),
-#         # )
+#         fig = px.scatter_geo(data_df, lon = data_df['longitude'], lat = data_df['latitude'],
+#                              hover_name="YeshuvAtarSvivatiMenifa", size=industry_col,
+#                              projection="natural earth")
+#         fig.update_layout(
+#             title=industry_col+"-"+data_values_list[ind],
+#             geo=dict(
+#                 scope='israel',
+#                 showland=True,
+#                 landcolor="rgb(250, 250, 250)",
+#                 subunitcolor="rgb(217, 217, 217)",
+#                 countrycolor="rgb(217, 217, 217)",
+#                 countrywidth=0.5,
+#                 subunitwidth=0.5
+#             ),
+#         )
 #         fig.show()
 #         save_plotly_map(map_plot=fig, file_name=industry_col+"-"+data_values_list[ind])
 
 # Create folium map
+# TODO: HTML labling doesn't work (commented out)
 def industry_map(data_list, data_values_list, industry_col):
     for ind, data_df in enumerate(data_list):
         # Create empty map
@@ -423,7 +427,8 @@ def industry_map(data_list, data_values_list, industry_col):
         # legend_html = legend_html + html_end
         # map_f.get_root().html.add_child(folium.Element(legend_html))
 
-        save_folium_map(map_plot=map_f, file_name=industry_col + "-" + data_values_list[ind])
+        dir = save_folium_map(map_plot=map_f, file_name=industry_col + "-" + data_values_list[ind])
+        print("Map plote saved at " + str(dir))
 
     '''
      Map tileset to use. Can choose from this list of built-in tiles:
@@ -441,7 +446,7 @@ def industry_map(data_list, data_values_list, industry_col):
 
 # plot waste using pandas.dataframe.plot()
 def waste_graph(data):
-    data = shorten_name(dataframe=data, col="ShemAtarSvivatiMenifa", how_short=40)
+    data = shorten_name(dataframe=data, cols=["ShemAtarSvivatiMenifa"], how_short=40)
     pv_factories = pd.pivot_table(data=data,
                                   values=["total_waste", "total_non_dangerous_waste", "total_dangerous_waste"],
                                   index=["ShemAtarSvivatiMenifa"], aggfunc=np.sum)
@@ -491,48 +496,5 @@ def waste_graph(data):
     plt.tight_layout()
     make_fullscreen()
     # plt.show(block=False)
-    save_figure(figure_name="FactoriesWaste")
-
-    print("pause")
-
-# Create folium map - an attampt to plot each categpru with a diffrent color on the same map
-# def industry_map(data, masks, data_values, industry_col):
-#     # Create empty map
-#     map_f = folium.Map(
-#         # location=[31.0461, 34.8516], #Israel
-#         location=[data["latitude"].mean(), data["longitude"].mean()],
-#         tiles='cartodbpositron',
-#         zoom_start=8,
-#     )
-#
-#     # Create legend through html
-#     legend_html = '''
-#      <div style=”position: fixed;
-#      bottom: 50px; left: 50px; width: 1000px; height: 900px;
-#      border:2px solid grey; z-index:9999; font-size:14px;
-#      “>&nbsp; Cool Legend <br>
-#      '''
-#     html_marker = '''
-#          &nbsp; {industry_name} &nbsp; <i class=”fa fa-map-marker fa-2x”
-#                   style=”color:{marker_color}”></i><br>
-#     '''
-#
-#     # Loop to plot each data series separately with a different color and add it to legend
-#     for ind, mask in enumerate(masks):
-#         color = color_looper(ind)
-#         legend_html = legend_html + html_marker.format(industry_name=data_values[ind], marker_color=color)
-#
-#     # The following lines plot each point individualy
-#         mini_df = data.loc[mask[0], ["yeshuv", "latitude", "longitude"]]
-#         for i in range(0, len(mini_df)):
-#             folium.Marker([mini_df.iloc[i]['latitude'], mini_df.iloc[i]['longitude']],
-#                           color=color).add_to(map_f)
-#
-#     # Finish legend and display it
-#     html_end = "</div>"
-#     legend_html = legend_html + html_end
-#     map_f.get_root().html.add_child(folium.Element(legend_html))
-#
-#     save_folium_map(map_plot=map_f, file_name=industry_col)
-#
-#     '''
+    dir = save_figure(figure_name="FactoriesWaste")
+    print(str(dir))

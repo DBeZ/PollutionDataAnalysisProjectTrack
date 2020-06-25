@@ -7,7 +7,7 @@
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published
     by the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+    any later version.
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -73,6 +73,7 @@ def two_group_separator(dataframe, col, dataframes_list, rename_df=True):
             dataframe.name = dataframe.name
         return dataframes_list
     return df
+
 
 
 ## Takes a dataframe and returns a seperate dataframe for each value in the specified column
@@ -177,9 +178,8 @@ def convert_to_numeric(dataframe, column_list):
 
 # Corrects Nans and specific emission column data
 def data_value_cleaining(all_data):
+    # Emission accidental/non accidental column
     all_data["KamutPlitaLoBeTeunot"] = 0
-    all_data["PsoletMesukenetTotal"] = np.NaN
-    all_data["PsoletLoMesukenetTotal"] = np.NaN
 
     # df_categories, variable_columns, highly_variable_columns = value_variability_check(dataframe=all_data,
     #                                                                                    low_medium_variable_cutoff=20,
@@ -279,6 +279,9 @@ def data_value_cleaining(all_data):
 
     all_data = convert_to_numeric(dataframe=all_data, column_list=columns_to_convert)
 
+    # Waste column
+    all_data["PsoletMesukenetTotal"] = np.NaN
+    all_data["PsoletLoMesukenetTotal"] = np.NaN
     all_data["PsoletMesukenetTotal"] = all_data["SachTipulPsoletMesukenet"] + all_data["SachSilukPsoletMesukenet"]
     all_data["PsoletLoMesukenetTotal"] = all_data["SachTipulPsoletLoMesukenet"] + all_data["SachSilukPsoletLoMesukenet"]
 
@@ -303,8 +306,9 @@ def load_csv_then_pickle(csv_file_name, output_folder_name, pickle_file_name):
 
 
 # shorten name for display
-def shorten_name(dataframe, col, how_short):
-    dataframe[col] = dataframe[col].str[:how_short]
+def shorten_name(dataframe, cols, how_short):
+    for col in cols:
+        dataframe[col] = dataframe[col].str[:how_short]
     return dataframe
 
 
@@ -418,7 +422,7 @@ def shorten_product_name(dataframe, product_col):
 
 
 ##############
-# Archiology #
+# Archeology #
 ##############
 # def two_group_separator(dataframe, col, values):
 #     if isinstance(values,list):
