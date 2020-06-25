@@ -11,14 +11,14 @@ Purpose:
 
 Project outline:
 (a) Data Cleaning. Uses a non-graphic UI. Cleaned data is then pickled. If a pickled data file exists UI will not be called.
-  (a.1) Columns with low variability (less than two unique values) are removed.
-  (a.2) Numeric columns description is displayed. 
-  (a.3) Non-numeric columns description is displayed. 
-  (a.4) All column names are displayed.
-  (a.5) The type, unique value amount and a sample of of its values are displayed. 
-  (a.6) Dialog asks whether to convert the column to int, bool, date (d/m/Y format), category or to record its name for future decision. 
-        Column where conversion fails are also recorded for further exploration.
-  (a.7) Columns containing NaNs are listed. These are not all with empty cells as empty strings are not identified.
+    (a.1) Columns with low variability (less than two unique values) are removed.
+    (a.2) Numeric columns description is displayed. 
+    (a.3) Non-numeric columns description is displayed. 
+    (a.4) All column names are displayed.
+    (a.5) The type, unique value amount and a sample of of its values are displayed. 
+    (a.6) Dialog asks whether to convert the column to int, bool, date (d/m/Y format), category or to record its name for future decision. 
+          Column where conversion fails are also recorded for further exploration.
+    (a.7) Columns containing NaNs are listed. These are not all with empty cells as empty strings are not identified.
  
  Specific column treatment: Comma removal from numeric values, accidental/non accidental/total emission calculated from data, non-dangerous waste column created. 
  
