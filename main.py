@@ -43,7 +43,7 @@ Purpose:
 (2) Infer whether accidents have a profound impact on pollution in certain industries.
 (3) Identify Industrial geographical clusters which moving/reducing will have a significant difference on pollution in different areas in Israel.
 
-Note - axis labels and tick labels are in Hebrew, labels are mirrored to allow for proper presentation. Some of them are shortened to an arbitrary length for display purposes.
+Note - axis labels and tick labels are in Hebrew, labels are mirrored to allow for proper presentation. Some of them are shortened to an arbitrary length for display purposes. Others are shortened by dictionary. 
 Note - subtables for pivot are either masked or by creating a separate new table for each value in a given column (when the values are categories).
 '''
 
@@ -81,7 +81,7 @@ def main():
 
     ## Most polluting factories (waste)
     '''(2) Bar plots of 10 factories which produce the most waste, dangerous and non-dangerous.'''
-    generators.waste(data=cleaned_df)
+    # generators.waste(data=cleaned_df)
     print("Waste analysis Done")
 
     ## Industries with most accidents
@@ -94,7 +94,7 @@ def main():
     '''
     (4) Violin plots created for accidental and non-accidental emission in industry fields using seaborn.
     '''
-    generators.accident_analysis_ui(data=cleaned_df)
+    #generators.accident_analysis_ui(data=cleaned_df)
     print("Accident analysis Done")
 
     ''' 

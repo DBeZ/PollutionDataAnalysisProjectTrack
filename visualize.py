@@ -78,7 +78,7 @@ def make_fullscreen():
 # Save matplotlib output_folder_name
 def save_figure(figure_name, output_folder_name="Output_files"):
     working_directory = os.getcwd()
-    if output_folder_name!="":
+    if output_folder_name != "":
         if not os.path.exists(output_folder_name):
             os.mkdir(output_folder_name)
         os.chdir(output_folder_name)
@@ -127,7 +127,10 @@ def compare_for_presentation(dataframe, pv, col_by, col_name, col_of):
 
 
 # Bar plot comparing accidental and non accidental emissions
-def accidents_with_non_acci(dataframes, col_by, col_of, title_template, col_name, output_folder_name, is_x_rtl=False, is_log=False):
+def accidents_with_non_acci(dataframes, col_by, col_of, title_template, col_name, output_folder_name, is_x_rtl=False,
+                            is_log=False):
+    if os.getcwd() != output_folder_name:
+        os.chdir(output_folder_name)
     for dataframe in dataframes:
         # Arrange data columns and legend
         title_heb = title_template.format(dataframe[col_of][0], dataframe["SugPlita"][0], col_name)
@@ -216,11 +219,16 @@ def accidents_or_non_acci(dataframes, col_by, col_of, title_template, col_name, 
             make_fullscreen()
             # plt.show(block=False)
             dir = save_figure(figure_name=title_heb, output_folder_name="")
-            print("Accidental emmission graphs save at " + str(dir))
+            print("Accidental emmission graphs saved at " + str(dir))
 
 
 # Petal Scatter plot with color indicating category and size indicating value
-def multi_feat_scatter(data, filename, x_col, y_col, size_col, color_col):
+def multi_feat_scatter(data, filename, x_col, y_col, size_col, color_col, output_folder_name="Output_files"):
+    working_directory = os.getcwd()
+    if output_folder_name != "":
+        if not os.path.exists(output_folder_name):
+            os.mkdir(output_folder_name)
+        os.chdir(output_folder_name)
     chart = alt.Chart(data).mark_circle().encode(
         alt.X(x_col, scale=alt.Scale(zero=False)),
         alt.Y(y_col, scale=alt.Scale(zero=False, padding=1)),
@@ -233,8 +241,9 @@ def multi_feat_scatter(data, filename, x_col, y_col, size_col, color_col):
         labelColor='red',
         labelFontSize=14
     )
-    dir=os.getcwd()
+    dir = os.getcwd()
     altair_saver.save(chart, filename + ".html")
+    os.chdir(working_directory)
     print("Multi feature scatter plot saved at " + str(dir))
 
 

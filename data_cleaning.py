@@ -75,7 +75,6 @@ def two_group_separator(dataframe, col, dataframes_list, rename_df=True):
     return df
 
 
-
 ## Takes a dataframe and returns a seperate dataframe for each value in the specified column
 def dataframe_by_column_value_separator(dataframe, col, rename_df=True):
     dataframes_list = []
