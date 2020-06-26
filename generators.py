@@ -255,14 +255,13 @@ def accident_analysis_ui(data):
 
 
 def industry_geoloc(data, city_col, industry_col, pivot_by, values, output_folder_name="Output_files"):
-    current_folder = os.getcwd()
-    os.chdir(output_folder_name)
     try:
         # Translate cities to geolocations
         geoloc = geoloc_loader(data=data, city_col=city_col)
     except Exception as e:
         print("Error during geolocation retrieval")
         print(e)
+    current_folder = os.getcwd()
 
     try:
         # Add geolocation column
@@ -280,11 +279,11 @@ def industry_geoloc(data, city_col, industry_col, pivot_by, values, output_folde
         print("Error during geoloc data addition to main data")
         print(e)
 
-    # try:
-    #     visualize.industry_map(data_list=category_df, data_values_list=category_dfs_val_list, industry_col=industry_col)
-    # except Exception as e:
-    #     print("Error during map visualization with dots (folium)")
-    #     print(e)
+    try:
+        visualize.industry_map(data_list=category_df, data_values_list=category_dfs_val_list, industry_col=industry_col)
+    except Exception as e:
+        print("Error during map visualization with dots (folium)")
+        print(e)
 
     try:
         pivots = []

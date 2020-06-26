@@ -81,7 +81,7 @@ def main():
 
     ## Most polluting factories (waste)
     '''(2) Bar plots of 10 factories which produce the most waste, dangerous and non-dangerous.'''
-    # generators.waste(data=cleaned_df)
+    generators.waste(data=cleaned_df)
     print("Waste analysis Done")
 
     ## Industries with most accidents
@@ -94,7 +94,7 @@ def main():
     '''
     (4) Violin plots created for accidental and non-accidental emission in industry fields using seaborn.
     '''
-    #generators.accident_analysis_ui(data=cleaned_df)
+    generators.accident_analysis_ui(data=cleaned_df)
     print("Accident analysis Done")
 
     ''' 
@@ -116,6 +116,7 @@ def main():
     (6) Number of factories in each field plotted on map using geoviews. bokeh provides interactivity. Circle size indicates number of factories in the city. Circle color changes between graphs. Graphs saved as HTML in a subfolder of the output folder.
     Optional: plotting using Folium, non-interactive map (no tooltips or different circle sizes). Circle color changes between graphs. Graphs saved as HTML in a subfolder of the output folder.
     '''
+    os.chdir(working_directory)
     generators.industry_geoloc(data=cleaned_df, city_col="YeshuvAtarSvivatiMenifa", industry_col="AnafAtarSvivati",
                                pivot_by="YeshuvAtarSvivatiMenifa", values="AnafAtarSvivati")
     generators.industry_geoloc(data=cleaned_df, city_col="YeshuvAtarSvivatiMenifa",

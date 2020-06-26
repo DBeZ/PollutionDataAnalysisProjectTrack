@@ -123,7 +123,6 @@ def compare_for_presentation(dataframe, pv, col_by, col_name, col_of):
         make_fullscreen()
         plt.show(block=False)
         dir = save_figure(figure_name=title_heb)
-        print("Figure with two sublots saved at " + str(dir))
 
 
 # Bar plot comparing accidental and non accidental emissions
@@ -173,7 +172,6 @@ def accidents_with_non_acci(dataframes, col_by, col_of, title_template, col_name
             make_fullscreen()
             # plt.show(block=False)
             dir = save_figure(figure_name=title_heb, output_folder_name=output_folder_name)
-            print("Accident and Non-accident comparing graph saved at " + str(dir))
             compare_for_presentation(dataframe=dataframe, pv=pv, col_by=col_by, col_name=col_name, col_of=col_of)
 
 
@@ -219,7 +217,6 @@ def accidents_or_non_acci(dataframes, col_by, col_of, title_template, col_name, 
             make_fullscreen()
             # plt.show(block=False)
             dir = save_figure(figure_name=title_heb, output_folder_name="")
-            print("Accidental emmission graphs saved at " + str(dir))
 
 
 # Petal Scatter plot with color indicating category and size indicating value
@@ -244,7 +241,6 @@ def multi_feat_scatter(data, filename, x_col, y_col, size_col, color_col, output
     dir = os.getcwd()
     altair_saver.save(chart, filename + ".html")
     os.chdir(working_directory)
-    print("Multi feature scatter plot saved at " + str(dir))
 
 
 # Violin plot for multiple series - two series on one violin
@@ -273,7 +269,6 @@ def violin_emissions(data, x_col, y_col, hue, split, figure_name, fig_title, is_
     make_fullscreen()
     # plt.show(block=False)
     dir = save_figure(figure_name=figure_name)
-    print("Violin plot saved at " + str(dir))
 
 
 # Save folium map into designated folder
@@ -351,7 +346,6 @@ def industry_size_map(data_list, data_values_list, industry_col):
                         hover_fill_color=None, hover_fill_alpha=0.5))
         dir = save_geoviews(map_plot=map_plot, file_name="map " + industry_col + "-" + data_values_list[ind],
                             renderer=renderer, output_folder="Output_files")
-        print("Map plot saved at " + str(dir))
 
 
 # Save plotly map into designated folder
@@ -437,7 +431,6 @@ def industry_map(data_list, data_values_list, industry_col):
         # map_f.get_root().html.add_child(folium.Element(legend_html))
 
         dir = save_folium_map(map_plot=map_f, file_name=industry_col + "-" + data_values_list[ind])
-        print("Map plote saved at " + str(dir))
 
     '''
      Map tileset to use. Can choose from this list of built-in tiles:

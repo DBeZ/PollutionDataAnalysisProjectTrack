@@ -62,7 +62,9 @@ def convert_city_to_geoloc(data, city_col):
 
 def geoloc_loader(data, city_col):
     pickel_name = "city_geolocations"
-    if os.path.isfile(os.getcwd() + "\\" + pickel_name + ".pkl"):
+    if 'latitude' in data.columns:
+        pass
+    elif os.path.isfile(os.getcwd() + "\\" + pickel_name + ".pkl"):
         geoloc = load_data_from_pickle(pickle_file_name=pickel_name)
     else:
         geoloc_df = convert_city_to_geoloc(data=data, city_col=city_col)
